@@ -47,9 +47,6 @@
         <li class="active">
             <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
-        </li>
 </ul>
 
 <div class="tab-content">
@@ -119,11 +116,6 @@
 <code>constructor(jwtService: JwtService, _dataManagerService: <a href="../injectables/DataManagerService.html" target="_self">DataManagerService</a>)</code>
                     </td>
                 </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/auth/auth.service.ts:9</a></div>
-                            </td>
-                        </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -194,12 +186,6 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">src/auth/auth.service.ts:35</a></div>
-                </td>
-            </tr>
 
 
             <tr>
@@ -263,12 +249,6 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">src/auth/auth.service.ts:25</a></div>
-                </td>
-            </tr>
 
 
             <tr>
@@ -334,11 +314,6 @@
                         <span class="accessor"><b>get</b><code>satelliteId()</code></span>
                     </td>
                 </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/auth/auth.service.ts:16</a></div>
-                                </td>
-                            </tr>
 
             </tbody>
         </table>
@@ -346,47 +321,6 @@
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
-import { JwtService } from &#x27;@nestjs/jwt&#x27;;
-import logger from &#x27;src/lib/logger&#x27;;
-import { DataManagerService } from &#x27;../dataManager/dataManager.service&#x27;;
-
-import { FileManagerToken, SatelliteJWT } from &#x27;../interfaces&#x27;;
-
-@Injectable()
-export class AuthService {
-    // private _jwt: string;
-    constructor(
-        private readonly jwtService: JwtService,
-        private _dataManagerService: DataManagerService,
-    ) {}
-
-    public get satelliteId(): string {
-        const decoded &#x3D; this.jwtService.decode(this._dataManagerService.satelliteToken) as SatelliteJWT;
-        return decoded.aud;
-    }
-
-    // getJWT(): string {
-    //     return this._jwt;
-    // }
-
-    verify(token: string): Promise&lt;FileManagerToken&gt; {
-        logger.info(&#x27;Verifying&#x27;, token, this._dataManagerService.publicKey)
-        return new Promise((resolve, reject) &#x3D;&gt; {
-            this.jwtService
-                .verifyAsync(token, { publicKey: this._dataManagerService.publicKey })
-                .then((response) &#x3D;&gt; resolve(response))
-                .catch((err) &#x3D;&gt; reject(err));
-        });
-    }
-
-    decode(token: string) {
-        return this.jwtService.decode(token);
-    }
-}
-</code></pre>
-    </div>
 
 </div>
 

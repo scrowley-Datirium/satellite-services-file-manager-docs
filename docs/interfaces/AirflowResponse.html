@@ -54,9 +54,6 @@
         <li class="active">
             <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
-        </li>
 </ul>
 
 <div class="tab-content">
@@ -137,54 +134,6 @@
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface AirflowProgressReport {
-    dag_id: string;
-    run_id: string; // sample id
-    state: string;
-    progress: number;
-    error: string;
-    statistics: string | Statistics;
-}
-
-export interface Statistics {
-    version: string;
-    total: {
-        tmp_folder_size: number; //in KB
-        outputs_folder_size: number; //in KB
-        start_date: string;
-        end_date: number; // in seconds since start_date
-    };
-    steps: {
-        [key: string]: StepStats;
-    };
-}
-
-export interface StatisticsReport extends Statistics {
-    sampleId: string;
-}
-
-interface StepStats {
-    tmp_folder_size: number; //in KB
-    start_date: number; //in seconds since total start_date
-    end_date: number; //in seconds since local start_date
-}
-
-export interface AirflowResponse {
-    payload: AirflowProgressReport;
-}
-
-export interface AirflowSuccessResponse {
-    payload: AirflowSuccessReport;
-}
-
-export interface AirflowSuccessReport {
-    dag_id: string;
-    run_id: string;
-    results: any;
-}
-</code></pre>
-    </div>
 </div>
 
 
