@@ -47,6 +47,9 @@
         <li class="active">
             <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
         </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
 </ul>
 
 <div class="tab-content">
@@ -137,6 +140,11 @@
 <code>constructor(configService: ConfigService)</code>
                     </td>
                 </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/readFile/readFile.service.ts:14</a></div>
+                            </td>
+                        </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -197,6 +205,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/readFile/readFile.service.ts:38</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -284,6 +298,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">src/readFile/readFile.service.ts:60</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -352,6 +372,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/readFile/readFile.service.ts:24</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -422,6 +448,11 @@
                         <i>Default value : </i><code>new Subject&lt;VisualPluginResponse&gt;()</code>
                     </td>
                 </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/readFile/readFile.service.ts:14</a></div>
+                        </td>
+                    </tr>
 
 
         </tbody>
@@ -446,6 +477,11 @@
                         <span class="accessor"><b>get</b><code>events$()</code></span>
                     </td>
                 </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/readFile/readFile.service.ts:16</a></div>
+                                </td>
+                            </tr>
 
             </tbody>
         </table>
@@ -453,6 +489,96 @@
     </div>
 
 
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
+import { Observable, Subject } from &#x27;rxjs&#x27;;
+import { reduce, switchMap } from &#x27;rxjs/operators&#x27;;
+import * as csv from &#x27;fast-csv&#x27;;
+import fs &#x3D; require(&#x27;fs&#x27;);
+import path &#x3D; require(&#x27;path&#x27;);
+
+import Log from &#x27;../lib/logger&#x27;;
+import { VisualPluginRequest, VisualPluginResponse } from &#x27;src/interfaces&#x27;;
+import { ConfigService } from &#x27;@nestjs/config&#x27;;
+
+@Injectable()
+export class ReadFileService {
+    private _events$ &#x3D; new Subject&lt;VisualPluginResponse&gt;();
+    constructor (private configService: ConfigService) {}
+    public get events$() {
+        return this._events$;
+    }
+
+    /**
+     * Called at the start of satellite to feed it the stream of requests
+     * @param $stream stream that represents requests for information about visual plugins
+     */
+    public startListening(stream$: Subject&lt;VisualPluginRequest&gt;) {
+        stream$
+            .pipe(switchMap((visualPluginRequest: VisualPluginRequest) &#x3D;&gt; this._requestFileData(visualPluginRequest)))
+            .subscribe((visualPluginResponse: VisualPluginResponse) &#x3D;&gt; {
+                visualPluginResponse &amp;&amp; visualPluginResponse.error ? Log.error(visualPluginResponse) : Log.debug(visualPluginResponse);
+                this._events$.next(visualPluginResponse);
+            });
+    }
+
+    /**
+     * Read a given file as a stream
+     * @param filePath location of the file
+     * @param options options to read the file
+     */
+    private _csvDataStream(filePath: string, options?): Observable&lt;any&gt; {
+        let targetPath;
+        if (filePath.includes(this.configService.get(&#x27;systemRoot&#x27;))) {
+            targetPath &#x3D; filePath;
+        } else {
+            targetPath &#x3D; path.join(this.configService.get(&#x27;systemRoot&#x27;), filePath);
+        }
+        const file$ &#x3D; fs.createReadStream(targetPath, { encoding: &#x27;utf8&#x27; }).pipe(csv.parse(options));
+        return new Observable((observer) &#x3D;&gt; {
+            file$.on(&#x27;data&#x27;, (chunk) &#x3D;&gt; observer.next(chunk));
+            file$.on(&#x27;end&#x27;, () &#x3D;&gt; observer.complete());
+            file$.on(&#x27;close&#x27;, () &#x3D;&gt; observer.complete());
+            file$.on(&#x27;error&#x27;, (err) &#x3D;&gt; observer.error(err));
+        });
+    }
+
+    /**
+     * Parse the information before reading it
+     *  TODO: Should this be an absolute path yet?
+     * @param filePath location of the file
+     * @param fields fields to create the pie chart
+     */
+    private _requestFileData(visualPluginRequest: VisualPluginRequest): Observable&lt;any&gt; | any {
+        const visualPluginResponse: VisualPluginResponse &#x3D; {
+            sampleId: visualPluginRequest.sampleId,
+            visualPlugin: {
+                [visualPluginRequest.type]: {
+                    ...visualPluginRequest.visualPlugins,
+                    data: visualPluginRequest.data.map(() &#x3D;&gt; []),
+                },
+            },
+        };
+
+        const reqFields &#x3D; visualPluginRequest.data.map((item) &#x3D;&gt; {
+            const num &#x3D; item.startsWith(&#x27;$&#x27;) ? item.slice(1) : item;
+            return parseInt(num) - 1;
+        });
+        const clean &#x3D; (x) &#x3D;&gt; (isNaN(x) ? x : parseInt(x));
+        const options &#x3D; {
+            delimiter: &#x27;\t&#x27;,
+            headers: false,
+        };
+        return this._csvDataStream(visualPluginRequest.filePath, options).pipe(
+            reduce((response, curr) &#x3D;&gt; {
+                reqFields.forEach((item, i) &#x3D;&gt; response.visualPlugin[visualPluginRequest.type].data[i].push(clean(curr[item])));
+                return response;
+            }, visualPluginResponse),
+        );
+    }
+}
+</code></pre>
+    </div>
 
 </div>
 

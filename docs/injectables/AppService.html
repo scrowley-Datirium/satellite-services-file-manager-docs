@@ -47,6 +47,9 @@
         <li class="active">
             <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
         </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
 </ul>
 
 <div class="tab-content">
@@ -69,6 +72,94 @@
     </div>
 
 
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
+import path &#x3D; require(&#x27;path&#x27;);
+import { FileSystemStorage, StreamResponse } from &#x27;send-stream&#x27;;
+
+import { Pm2Packet, Pm2Response } from &#x27;./interfaces/pm2.interface&#x27;;
+import Log from &#x27;./lib/logger&#x27;;
+
+// Service that handles all the communication with the main service
+@Injectable()
+export class AppService {
+    // // Location of scidap projects directory
+    // public scidapHome: string;
+    // // Token that represents this satellite
+    // public satelliteToken: string;
+    // // Public key of API that is used to verify JWTs that hit endpoints
+    // public publicKey: string;
+
+    // // FileSystem root, updated whenever we update scidapHome
+    // public fsRoot &#x3D; { projects: &#x27;&#x27;, labs: &#x27;&#x27;, local: &#x27;&#x27; };
+    // public storage: FileSystemStorage;
+    // // Not using this yet
+    // public localFiles: any;
+
+    // private _keysToUpdate &#x3D; [&#x27;scidapHome&#x27;, &#x27;satelliteToken&#x27;, &#x27;publicKey&#x27;];
+
+    // constructor() {
+    //     process.on(&#x27;message&#x27;, (packet: Pm2Packet) &#x3D;&gt; {
+    //         Log.info(&#x27;Message from main service received&#x27;);
+    //         Log.info(packet);
+    //         this._processMessage(packet);
+    //     });
+    // }
+
+    // private _processMessage(packet: Pm2Packet) {
+    //     const keysChanged &#x3D; [];
+    //     const response: Pm2Response &#x3D; { updated: keysChanged };
+    //     try {
+    //         for (let key of this._keysToUpdate) {
+    //             if (packet[key]) {
+    //                 this[key] &#x3D; packet[key];
+    //                 if (key &#x3D;&#x3D;&#x3D; &#x27;scidapHome&#x27;) this._updateHome();
+    //                 keysChanged.push[key];
+    //             }
+    //         }
+    //         if (keysChanged.length &#x3D;&#x3D;&#x3D; 0) {
+    //             throw new Error(&#x27;No keys were updated&#x27;);
+    //         }
+    //         Log.info(&#x60;Succesfully updated: ${keysChanged.join(&#x27;, &#x27;)}&#x60;);
+    //     } catch (err) {
+    //         const msg &#x3D; &#x60;Error parsing packet from main service: ${err}&#x60;;
+    //         Log.error(msg);
+    //         response.err &#x3D; true;
+    //         response.msg &#x3D; msg;
+    //     } finally {
+    //         this.sendMessage(response);
+    //     }
+    // }
+
+    // public sendMessage(message: Pm2Response) {
+    //     process.send({
+    //         type : &#x27;process:msg&#x27;,
+    //         data : {
+    //           ...message
+    //         },
+    //     })          
+    // }
+
+    // private _updateHome() {
+    //     // this._localFiles &#x3D; this.configService.get(&#x27;remotes&#x27;).localfiles;
+    //     this.fsRoot.projects &#x3D; path.resolve(this.scidapHome, &#x27;projects&#x27;);
+    //     this.fsRoot.labs &#x3D; path.resolve(this.scidapHome, &#x27;laboratories&#x27;);
+    //     this.storage &#x3D; new FileSystemStorage(this.scidapHome);
+    //         // local: path.resolve(&#x27;/&#x27;, this._localFiles.collection[0].path),
+    //     // };
+    // // } catch (err) {
+    // //     Log.debug(err);
+    // //     Log.info(&#x27;No Local Files Defined&#x27;);
+    // //     this._fsRoot &#x3D; {
+    // //         projects: path.resolve(this.configService.get(&#x27;systemRoot&#x27;), &#x27;projects&#x27;),
+    // //         labs: path.resolve(this.configService.get(&#x27;systemRoot&#x27;), &#x27;laboratories&#x27;),
+    // //         local: &#x27;&#x27;,
+    // //     };
+
+    // }
+}
+</code></pre>
+    </div>
 
 </div>
 

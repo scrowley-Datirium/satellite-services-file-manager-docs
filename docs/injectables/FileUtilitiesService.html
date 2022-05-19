@@ -47,6 +47,9 @@
         <li class="active">
             <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
         </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
 </ul>
 
 <div class="tab-content">
@@ -131,6 +134,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">src/fileManagerAPI/fileUtilites.service.ts:61</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -203,6 +212,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="14"
+                            class="link-to-prism">src/fileManagerAPI/fileUtilites.service.ts:14</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -292,6 +307,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/fileManagerAPI/fileUtilites.service.ts:32</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -364,6 +385,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/fileManagerAPI/fileUtilites.service.ts:46</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -421,6 +448,78 @@
     </div>
 
 
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
+import fs &#x3D; require(&#x27;fs&#x27;);
+
+const fsPromises &#x3D; fs.promises;
+
+@Injectable()
+export class FileUtilitiesService {
+    /**
+     * Gets just the relative path from the file manager entry point
+     * @param rootDirectory the root directory
+     * @param fullPath the full path to the file
+     * @returns {string} relative path 
+     */
+    public getRelativePath(rootDirectory: string, fullPath: string): string {
+        if (rootDirectory.substring(rootDirectory.length - 1) &#x3D;&#x3D; &#x27;/&#x27;) {
+            if (fullPath.indexOf(rootDirectory) &gt;&#x3D; 0) {
+                const relativePath &#x3D; fullPath.substring(rootDirectory.length - 1).replace(&#x27;//&#x27;, &#x27;/&#x27;);
+                return relativePath[relativePath.length - 1] !&#x3D;&#x3D; &#x27;/&#x27; ? relativePath + &#x27;/&#x27; : relativePath;
+            }
+        } else if (fullPath.indexOf(rootDirectory + &#x27;/&#x27;) &gt;&#x3D; 0) {
+            return fullPath.substring(rootDirectory.length + 1);
+        } else {
+            return &#x27;&#x27;;
+        }
+    }
+
+    /**
+     * Get the size of the file in a string
+     * @param {number} size size of file in bytes
+     * @returns {string}
+     */
+    public getSize(size: number): string {
+        let hz;
+        if (size &lt; 1024) hz &#x3D; size + &#x27; B&#x27;;
+        else if (size &lt; 1024 * 1024) hz &#x3D; (size / 1024).toFixed(2) + &#x27; KB&#x27;;
+        else if (size &lt; 1024 * 1024 * 1024) hz &#x3D; (size / 1024 / 1024).toFixed(2) + &#x27; MB&#x27;;
+        else hz &#x3D; (size / 1024 / 1024 / 1024).toFixed(2) + &#x27; GB&#x27;;
+        return hz;
+    }
+
+    /**
+     * Make sure size is a number so that it combines easily
+     * @param {string|number} size string or potentially a number
+     * @returns {number}
+     */
+    public reverseSize(size: string | number): number {
+        if (typeof size &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) return size;
+        const num &#x3D; parseInt(size.split(&#x27; &#x27;).shift());
+        if (size.includes(&#x27;KB&#x27;)) return num * 1024;
+        if (size.includes(&#x27;MB&#x27;)) return num * 1024 * 1024;
+        if (size.includes(&#x27;GB&#x27;)) return num * 1024 * 1024 * 1024;
+        return num;
+    }
+
+
+    /**
+     * Does a directory already exist?
+     * @param {string} location location of directory
+     * @returns {Promise&lt;boolean&gt;}
+     */
+    public async directoryExists(location: string): Promise&lt;boolean&gt; {
+        try {
+            await fsPromises.stat(location);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+}
+</code></pre>
+    </div>
 
 </div>
 

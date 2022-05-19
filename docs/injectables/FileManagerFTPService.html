@@ -47,6 +47,9 @@
         <li class="active">
             <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
         </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
 </ul>
 
 <div class="tab-content">
@@ -139,6 +142,11 @@
 <code>constructor(utilitiesService: <a href="../injectables/FileUtilitiesService.html" target="_self">FileUtilitiesService</a>, configService: ConfigService)</code>
                     </td>
                 </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/fileManagerAPI/fileManagerFTP.service.ts:18</a></div>
+                            </td>
+                        </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -212,6 +220,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="184"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerFTP.service.ts:184</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -322,6 +336,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerFTP.service.ts:28</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -391,6 +411,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="156"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerFTP.service.ts:156</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -494,6 +520,12 @@
             </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerFTP.service.ts:53</a></div>
+                </td>
+            </tr>
 
 
             <tr>
@@ -586,6 +618,11 @@
 
                     </td>
                 </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/fileManagerAPI/fileManagerFTP.service.ts:18</a></div>
+                        </td>
+                    </tr>
 
 
         </tbody>
@@ -607,6 +644,11 @@
                         <i>Default value : </i><code>new FTPClient()</code>
                     </td>
                 </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/fileManagerAPI/fileManagerFTP.service.ts:16</a></div>
+                        </td>
+                    </tr>
 
 
         </tbody>
@@ -629,6 +671,11 @@
 
                     </td>
                 </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/fileManagerAPI/fileManagerFTP.service.ts:17</a></div>
+                        </td>
+                    </tr>
 
 
         </tbody>
@@ -638,6 +685,205 @@
     </div>
 
 
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
+import { ConfigService } from &#x27;@nestjs/config&#x27;;
+import { AccessOptions, Client as FTPClient, FileInfo } from &#x27;basic-ftp&#x27;;
+import aria2 &#x3D; require(&#x27;aria2&#x27;);
+import path &#x3D; require(&#x27;path&#x27;);
+
+import Log from &#x27;../lib/logger&#x27;;
+import { Aria2cResponse, FileInformation, FTPInformation, ReadRequest, ReadResponse } from &#x27;src/interfaces&#x27;;
+import { FileUtilitiesService } from &#x27;./fileUtilites.service&#x27;;
+
+import { createTunnel, closeTunnel } from &#x27;proxy-chain&#x27;;
+import { connectForPassiveTransfer, parsePasvResponse } from &#x27;basic-ftp/dist/transfer&#x27;;
+
+@Injectable()
+export class FileManagerFTPService {
+    private _ftpClient &#x3D; new FTPClient();
+    private _ftpOptions: AccessOptions;
+    private _aria: any;
+
+    constructor(private utilitiesService: FileUtilitiesService, private configService: ConfigService) {
+        this._aria &#x3D; new aria2(this.configService.get(&#x27;download.aria2&#x27;));
+    }
+    /**
+     * Gets recursive size of directory from ftp
+     * @deprecated Takes a lot of time to run maybe use maybe not
+     * @param filePath Path to file
+     */
+    private async _getDirectorySizeFTP(filePath) {
+        try {
+            let size &#x3D; 0;
+            const fileList: FileInfo[] &#x3D; await this._ftpClient.list(filePath);
+            for (const file of fileList) {
+                if (!file.isDirectory) {
+                    size +&#x3D; file.size;
+                } else {
+                    const location &#x3D; filePath &#x3D;&#x3D;&#x3D; &#x27;/&#x27; ? filePath + file.name : &#x60;${filePath}/${file.name}&#x60;;
+                    size +&#x3D; await this._getDirectorySizeFTP(location);
+                }
+            }
+            return size;
+        } catch (err) {
+            Log.error(&#x60;Error getting directory size: ${err}&#x60;);
+            throw err;
+        }
+    }
+
+    /**
+     * Gets information about ftp files
+     * @param {string} filePath location of the file
+     * @param {FTPInformation} ftpInformation ftp login information
+     * @returns {Promise&lt;ReadResponse&gt;}
+     */
+    public async readFTPFiles(filePath: string, ftpInformation: FTPInformation): Promise&lt;ReadResponse&gt; {
+        let tunneledCommands &#x3D; null;
+        let tunneledData &#x3D; null;
+        try {
+            const ftpOptions: AccessOptions &#x3D; {
+                host: ftpInformation.address,
+                user: ftpInformation.username,
+                password: ftpInformation.password,
+            };
+            this._ftpOptions &#x3D; ftpOptions;
+            if (process.env.ftp_proxy) {
+                tunneledCommands &#x3D; await createTunnel(
+                    process.env.ftp_proxy,
+                    &#x60;${ftpInformation.address}:21&#x60;,                          // UI doesn&#x27;t have option to set port, so we use default 21
+                    { hostname: &#x27;localhost&#x27; }
+                );
+                Log.debug(&#x27;Create tunnel for FTP commands&#x27;, tunneledCommands);
+                this._ftpClient.prepareTransfer &#x3D; async function (ftp) {
+                    const res &#x3D; await ftp.request(&quot;PASV&quot;);
+                    const target &#x3D; parsePasvResponse(res.message);
+                    tunneledData &#x3D; await createTunnel(
+                        process.env.ftp_proxy,
+                        &#x60;${ftpInformation.address}:${target.port}&#x60;,
+                        { hostname: &#x27;localhost&#x27; }
+                    );
+                    Log.debug(&#x27;Create tunnel for FTP data&#x27;, tunneledData);
+                    await connectForPassiveTransfer(
+                        tunneledData.split(&#x27;:&#x27;)[0],
+                        tunneledData.split(&#x27;:&#x27;)[1],
+                        ftp
+                    )
+                    return res
+                }
+                const tunneledFtpOptions: AccessOptions &#x3D; {
+                    host: tunneledCommands.split(&#x27;:&#x27;)[0],
+                    port: tunneledCommands.split(&#x27;:&#x27;)[1],
+                    user: ftpInformation.username,
+                    password: ftpInformation.password,
+                };
+                await this._ftpClient.access(tunneledFtpOptions);
+            } else {
+                await this._ftpClient.access(this._ftpOptions);
+            }
+            const cwd: FileInformation &#x3D; {
+                filterPath: filePath,
+                name: filePath,
+                hasChild: true,
+                dateCreated: new Date(),
+                dateModified: new Date(),
+                isFile: false,
+                size: &#x27;0&#x27;,
+                type: &#x27;&#x27;,
+            };
+            const fileList: FileInfo[] &#x3D; await this._ftpClient.list(filePath);
+            const files: FileInformation[] &#x3D; [];
+            for (const file of fileList) {
+                let size: number;
+                if (!file.isDirectory) size &#x3D; file.size;
+                else {
+                    size &#x3D; file.size;
+                    // TODO: Do we want to use this?
+                    // This slows the ftp connection down by a few seconds because
+                    // it recursively gets the file size of everything in the folder
+                    // without this it just assigns a file size of 4096 to folders
+                    // const location &#x3D; filePath &#x3D;&#x3D;&#x3D; &#x27;/&#x27; ? filePath + file.name : &#x60;${filePath}/${file.name}&#x60;;
+                    // size &#x3D; await this._getDirectorySizeFTP(location);
+                }
+                files.push({
+                    name: file.name,
+                    filterPath: filePath &#x3D;&#x3D;&#x3D; &#x27;/&#x27; ? filePath : &#x60;${filePath}/&#x60;,
+                    hasChild: file.isDirectory,
+                    dateModified: new Date(file.rawModifiedAt),
+                    dateCreated: new Date(file.rawModifiedAt),
+                    isFile: file.isFile,
+                    size: this.utilitiesService.getSize(size),
+                    type: &#x27;&#x27;,
+                });
+            }
+            return {
+                cwd,
+                files,
+            };
+        } catch (err) {
+            Log.error(&#x60;Failed to connect to ftp: ${err}&#x60;);
+        } finally {
+            this._ftpClient.close();
+            if (tunneledCommands !&#x3D;&#x3D; null){
+                await closeTunnel(tunneledCommands, true);
+                Log.debug(&#x27;Close tunnel for FTP commands&#x27;, tunneledCommands);
+            }
+            if (tunneledData !&#x3D;&#x3D; null){
+                await closeTunnel(tunneledData, true);
+                Log.debug(&#x27;Close tunnel for FTP data&#x27;, tunneledData);
+            }
+        }
+    }
+
+    /**
+     * Download a file from FTP to the satellite
+     * @param {FileInformation[]} data information from the file manager about the file
+     * @param path path to the file
+     * @param sampleId Sample Id
+     */
+    public async downloadFileFromFTP(data: FileInformation[], filePath: string, sampleId: string): Promise&lt;Aria2cResponse[]&gt; {
+        try {
+            Log.debug(&#x27;Attempting to download to satellite&#x27;);
+            await this._aria.open();
+            Log.debug(&#x27;Aria2c connection open&#x27;);
+            const results: Aria2cResponse[] &#x3D; [];
+            for (const item of data) {
+                const tempPath &#x3D; path.resolve(&#x27;/&#x27;, filePath, sampleId);
+                const directory &#x3D; path.join(this.configService.get(&#x27;systemRoot&#x27;), &#x27;projects&#x27;, tempPath);
+                const location &#x3D; item.filterPath + item.name;
+                const guid &#x3D; await this._downloadToSatellite(directory, item.name, location);
+                results.push({ guid, location: filePath + &#x27;/&#x27; + item.name });
+            }
+            Log.debug(&#x27;Downloading Started&#x27;);
+            // Stop tracking the downloads once they are all complete
+            return results;
+        } catch (err) {
+            Log.error(&#x60;Failed to download: ${err}&#x60;);
+            throw err;
+        }
+    }
+
+    /**
+     * Start the aria2c process of downloading the file
+     * @param directory temporary location to download onto the fs
+     * @param filename name of the file
+     * @param location where it is on the ftp server
+     */
+    private async _downloadToSatellite(directory: string, filename: string, location: string): Promise&lt;string&gt; {
+        const ftpLocation &#x3D; &#x60;ftp://${this._ftpOptions.user}:${this._ftpOptions.password}@${this._ftpOptions.host}${location}&#x60;;
+        try {
+            const guid &#x3D; await this._aria.call(&#x27;addUri&#x27;, [ftpLocation], {
+                dir: directory,
+                out: filename,
+            });
+            return guid;
+        } catch (err) {
+            Log.error(&#x60;Error with aria2c: ${err}&#x60;);
+        }
+    }
+}
+</code></pre>
+    </div>
 
 </div>
 
