@@ -66,6 +66,13 @@
             </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>expose abstract file-manager related method for pm2 to be able to give this service commands via node</p>
+
+            </p>
 
 
 
@@ -144,8 +151,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="155"
-                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:155</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="156"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:156</a></div>
                 </td>
             </tr>
 
@@ -224,8 +231,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:43</a></div>
                 </td>
             </tr>
 
@@ -304,14 +311,16 @@ actions not fully implemented: copy, move, create</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="220"
-                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:220</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="222"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:222</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>validate connection. called by api-sync before connecting to a satelite for a real request</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
@@ -350,8 +359,8 @@ actions not fully implemented: copy, move, create</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="175"
-                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:175</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="176"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:176</a></div>
                 </td>
             </tr>
 
@@ -441,6 +450,7 @@ import { AuthGuard } from &#x27;src/auth/auth.guard&#x27;;
 import { MulterOptions } from &#x27;@nestjs/platform-express/multer/interfaces/multer-options.interface&#x27;;
 import { ConfigService } from &#x27;@nestjs/config&#x27;;
 
+/** expose abstract file-manager related method for pm2 to be able to give this service commands via node */
 @Controller(&#x27;filemanager/api/filemanager&#x27;)
 export class FileManagerAPIController {
     constructor(
@@ -635,6 +645,7 @@ export class FileManagerAPIController {
         }
     }
     
+    /** validate connection. called by api-sync before connecting to a satelite for a real request */
     @Get(&#x27;testconnection&#x27;)
     testConnection() {
         return &#x27;success&#x27;;

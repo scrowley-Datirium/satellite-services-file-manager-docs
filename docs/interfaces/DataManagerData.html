@@ -69,6 +69,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>represents a parsed pm2 packet</p>
+
+            </p>
 
 
         <section>
@@ -189,6 +196,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>token associated with this satellite</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -227,6 +240,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>path for satellites &#39;home&#39; (generally &quot;/home/scidap&quot;)</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -236,16 +255,21 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface Pm2Response {
     updated?: string[];
-    err?: boolean;
+    err?: boolean; // SHOULD BE STRING ???
+    /** msg returned from successfully run pm2 process */
     msg?: string;
 }
 
+/** interface representing a pm2 process&#x27;s data packet. data stored in single string */
 export interface Pm2Packet {
     data: string;
 }
 
+/** represents a parsed pm2 packet */
 export interface DataManagerData {
+    /** path for satellites &#x27;home&#x27; (generally &quot;/home/scidap&quot;) */
     scidapHome?: string;
+    /** token associated with this satellite */
     satelliteToken?: string;
     publicKey?: string;
 }</code></pre>

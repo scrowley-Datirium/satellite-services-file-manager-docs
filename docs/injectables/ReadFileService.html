@@ -62,6 +62,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for reading visual plugin requests (and their file data) as a stream</p>
+
+            </p>
 
 
 
@@ -142,7 +149,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/readFile/readFile.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/readFile/readFile.service.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -207,8 +214,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">src/readFile/readFile.service.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">src/readFile/readFile.service.ts:41</a></div>
                 </td>
             </tr>
 
@@ -300,16 +307,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="60"
-                            class="link-to-prism">src/readFile/readFile.service.ts:60</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">src/readFile/readFile.service.ts:64</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Parse the information before reading it
- TODO: Should this be an absolute path yet?</p>
+                    <div class="io-description"><p>Parse the information before reading it</p>
+<p> TODO: Should this be an absolute path yet?</p>
 </div>
 
                     <div class="io-description">
@@ -374,8 +381,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="24"
-                            class="link-to-prism">src/readFile/readFile.service.ts:24</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/readFile/readFile.service.ts:27</a></div>
                 </td>
             </tr>
 
@@ -450,10 +457,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/readFile/readFile.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/readFile/readFile.service.ts:16</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>what visual plugin event is being streamed</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -479,7 +492,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/readFile/readFile.service.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/readFile/readFile.service.ts:19</a></div>
                                 </td>
                             </tr>
 
@@ -501,9 +514,12 @@ import Log from &#x27;../lib/logger&#x27;;
 import { VisualPluginRequest, VisualPluginResponse } from &#x27;src/interfaces&#x27;;
 import { ConfigService } from &#x27;@nestjs/config&#x27;;
 
+/** Service for reading visual plugin requests (and their file data) as a stream */
 @Injectable()
 export class ReadFileService {
+    /** what visual plugin event is being streamed */
     private _events$ &#x3D; new Subject&lt;VisualPluginResponse&gt;();
+
     constructor (private configService: ConfigService) {}
     public get events$() {
         return this._events$;
@@ -545,6 +561,7 @@ export class ReadFileService {
 
     /**
      * Parse the information before reading it
+     * 
      *  TODO: Should this be an absolute path yet?
      * @param filePath location of the file
      * @param fields fields to create the pie chart

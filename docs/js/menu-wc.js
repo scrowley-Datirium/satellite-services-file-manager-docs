@@ -81,7 +81,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-AppModule-4a0e4d95dcb8caaef02d0bbb5459a8c36ac256da218b588f712f8e1d6c389feb4a89bbc2a60d1c70579dfdd19c1637edaeaa21460b1a701cd1413242d968fc2d"' :
                                         'id="xs-injectables-links-module-AppModule-4a0e4d95dcb8caaef02d0bbb5459a8c36ac256da218b588f712f8e1d6c389feb4a89bbc2a60d1c70579dfdd19c1637edaeaa21460b1a701cd1413242d968fc2d"' }>
                                         <li class="link">
-                                            <a href="injectables/AppService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >AppService</a>
+                                            <a href="injectables/AppService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" class="deprecated-name">AppService</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -232,7 +232,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
-                                <a href="interfaces/Action.html" data-type="entity-link" >Action</a>
+                                <a href="interfaces/Action.html" data-type="entity-link" class="deprecated-name">Action</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/AirflowProgressReport.html" data-type="entity-link" >AirflowProgressReport</a>
@@ -271,7 +271,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/Certs.html" data-type="entity-link" >Certs</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/DagRunInfo.html" data-type="entity-link" >DagRunInfo</a>
+                                <a href="interfaces/DagRunInfo.html" data-type="entity-link" class="deprecated-name">DagRunInfo</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DataManagerData.html" data-type="entity-link" >DataManagerData</a>
@@ -298,7 +298,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/DownloadResults.html" data-type="entity-link" >DownloadResults</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/DownloadToken.html" data-type="entity-link" >DownloadToken</a>
+                                <a href="interfaces/DownloadToken.html" data-type="entity-link" class="deprecated-name">DownloadToken</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DownloadToSatelliteRequest.html" data-type="entity-link" >DownloadToSatelliteRequest</a>

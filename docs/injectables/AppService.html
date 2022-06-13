@@ -40,7 +40,9 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li >AppService</li>
+  <li 
+        class="deprecated-name"
+    >AppService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,6 +63,12 @@
             <code>src/app.service.ts</code>
         </p>
 
+            <p class="comment">
+                <h3 class="deprecated">Deprecated</h3>
+            </p>
+            <p class="comment">
+                Service that USED TO handle all the communication with the main service
+            </p>
 
 
 
@@ -80,7 +88,7 @@ import { FileSystemStorage, StreamResponse } from &#x27;send-stream&#x27;;
 import { Pm2Packet, Pm2Response } from &#x27;./interfaces/pm2.interface&#x27;;
 import Log from &#x27;./lib/logger&#x27;;
 
-// Service that handles all the communication with the main service
+/** @deprecated Service that USED TO handle all the communication with the main service */
 @Injectable()
 export class AppService {
     // // Location of scidap projects directory

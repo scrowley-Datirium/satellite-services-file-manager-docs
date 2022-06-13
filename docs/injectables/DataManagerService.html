@@ -187,7 +187,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/dataManager/dataManager.service.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/dataManager/dataManager.service.ts:33</a></div>
                             </td>
                         </tr>
 
@@ -222,14 +222,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/dataManager/dataManager.service.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">src/dataManager/dataManager.service.ts:47</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Process a pm2Packet before sending it to be run</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -240,6 +242,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -254,6 +257,10 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>pm2 packet to be processed before being run</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -293,14 +300,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="88"
-                            class="link-to-prism">src/dataManager/dataManager.service.ts:88</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">src/dataManager/dataManager.service.ts:94</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>update the project, lab, and localFiles directory based on scidapHome directory</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -332,8 +341,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="79"
-                            class="link-to-prism">src/dataManager/dataManager.service.ts:79</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="84"
+                            class="link-to-prism">src/dataManager/dataManager.service.ts:84</a></div>
                 </td>
             </tr>
 
@@ -405,15 +414,15 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="112"
-                            class="link-to-prism">src/dataManager/dataManager.service.ts:112</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="118"
+                            class="link-to-prism">src/dataManager/dataManager.service.ts:118</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Provide a hook for main.ts to start and stop servers programatically</p>
+                    <div class="io-description"><p>Provide a hook for main.ts to start and stop servers programatically.</p>
 </div>
 
                     <div class="io-description">
@@ -508,7 +517,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/dataManager/dataManager.service.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/dataManager/dataManager.service.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -540,7 +549,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/dataManager/dataManager.service.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/dataManager/dataManager.service.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -605,7 +614,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/dataManager/dataManager.service.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/dataManager/dataManager.service.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -871,7 +880,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/dataManager/dataManager.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/dataManager/dataManager.service.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -911,6 +920,7 @@ export class DataManagerService {
 
     /** FileSystem root, updated whenever we update scidapHome */
     public fsRoot &#x3D; { projects: &#x27;&#x27;, labs: &#x27;&#x27;, local: &#x27;&#x27; };
+    /** @type {FileSystemStorage} storage system used for files */
     public storage: FileSystemStorage;
     public localFiles: any;
     private _fsKeys &#x3D; [&#x27;localFiles&#x27;, &#x27;scidapHome&#x27;];
@@ -925,6 +935,10 @@ export class DataManagerService {
         });
     }
 
+    /**
+     * Process a pm2Packet before sending it to be run
+     * @param {Pm2Packet} packet pm2 packet to be processed before being run
+     */
     private _processMessage(packet: Pm2Packet) {
         const keysChanged &#x3D; [];
         const response: Pm2Response &#x3D; { updated: keysChanged };
@@ -971,6 +985,7 @@ export class DataManagerService {
         })          
     }
 
+    /** update the project, lab, and localFiles directory based on scidapHome directory */
     private _updateHome() {
         // this._localFiles &#x3D; this.configService.get(&#x27;remotes&#x27;).localfiles;
         this.fsRoot.projects &#x3D; path.resolve(this.scidapHome, &#x27;projects&#x27;);
@@ -991,7 +1006,7 @@ export class DataManagerService {
     }
 
     /**
-     * Provide a hook for main.ts to start and stop servers programatically
+     * Provide a hook for main.ts to start and stop servers programatically.
      * @param startUpFunction Function that starts the Servers
      * @param stopServers Function that stops the Servers
      */

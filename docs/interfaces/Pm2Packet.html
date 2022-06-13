@@ -69,6 +69,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>interface representing a pm2 process&#39;s data packet. data stored in single string</p>
+
+            </p>
 
 
         <section>
@@ -140,16 +147,21 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface Pm2Response {
     updated?: string[];
-    err?: boolean;
+    err?: boolean; // SHOULD BE STRING ???
+    /** msg returned from successfully run pm2 process */
     msg?: string;
 }
 
+/** interface representing a pm2 process&#x27;s data packet. data stored in single string */
 export interface Pm2Packet {
     data: string;
 }
 
+/** represents a parsed pm2 packet */
 export interface DataManagerData {
+    /** path for satellites &#x27;home&#x27; (generally &quot;/home/scidap&quot;) */
     scidapHome?: string;
+    /** token associated with this satellite */
     satelliteToken?: string;
     publicKey?: string;
 }</code></pre>
