@@ -400,7 +400,6 @@ export interface DownloadResults {
 
 /**
  * 
- * @property {AriaFileInfo[]} files
  */
 export interface Aria2cProgressReport {
     status: string;
@@ -411,8 +410,6 @@ export interface Aria2cProgressReport {
 
 /**
  * 
- * @property {Aria2cProgressReport} aria2
- * @property {AriaDownloadObject} data
  */
 export interface MergedDownloadObject {
     aria2: Aria2cProgressReport;
@@ -441,17 +438,18 @@ export interface AirflowSuccessToAPI {
 }
 
 /**
- * 
- * @property {number} iat 
- * @property {number} exp expiration time (in seconds)
- * @property {string} aud satellite id
+ * interface representing parsed satellite token
  */
 export interface SatelliteJWT {
     userId: string;
-    iat: number; //in seconds
-    exp: number; //in seconds
-    aud: string; //satellite id
-    sub: string; //satellite
+    /** in seconds */
+    iat: number; 
+    /** in seconds */
+    exp: number; 
+    /** satellite id */
+    aud: string; 
+    /** satellite */
+    sub: string; 
 }
 
 export interface DownloadFailed {

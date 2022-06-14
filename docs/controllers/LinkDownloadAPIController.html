@@ -66,6 +66,13 @@
             </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>expose &#39;download&#39; endpoints for file-manager</p>
+
+            </p>
 
 
 
@@ -133,8 +140,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="30"
-                            class="link-to-prism">src/linkDownloadAPI/linkDownloadAPI.controller.ts:30</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">src/linkDownloadAPI/linkDownloadAPI.controller.ts:31</a></div>
                 </td>
             </tr>
 
@@ -236,6 +243,7 @@ import { GetAuthGuard } from &#x27;./getAuth.guard&#x27;;
 import { LinkDownloadAPIService } from &#x27;./linkDownloadAPI.service&#x27;;
 import { DataManagerService } from &#x27;src/dataManager/dataManager.service&#x27;;
 
+/** expose &#x27;download&#x27; endpoints for file-manager */
 @Controller(&#x27;download&#x27;)
 export class LinkDownloadAPIController {
     constructor(
@@ -248,8 +256,8 @@ export class LinkDownloadAPIController {
     /**
      * Request from visual plugins for file on satellite
      * @param req Request Object
-     * @param res Response Object
-     * @param token JWT Token should follow this format
+     * @param {Response} res Response Object
+     * @param {string} token JWT Token should follow this format
      */
     @UseGuards(GetAuthGuard)
     @Get(&#x27;:token/*&#x27;)

@@ -69,6 +69,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>interface representing parsed satellite token</p>
+
+            </p>
 
 
         <section>
@@ -155,6 +162,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>satellite id</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -188,6 +201,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>in seconds</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -221,6 +240,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>in seconds</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -254,6 +279,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>satellite</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -376,7 +407,6 @@ export interface DownloadResults {
 
 /**
  * 
- * @property {AriaFileInfo[]} files
  */
 export interface Aria2cProgressReport {
     status: string;
@@ -387,8 +417,6 @@ export interface Aria2cProgressReport {
 
 /**
  * 
- * @property {Aria2cProgressReport} aria2
- * @property {AriaDownloadObject} data
  */
 export interface MergedDownloadObject {
     aria2: Aria2cProgressReport;
@@ -417,17 +445,18 @@ export interface AirflowSuccessToAPI {
 }
 
 /**
- * 
- * @property {number} iat 
- * @property {number} exp expiration time (in seconds)
- * @property {string} aud satellite id
+ * interface representing parsed satellite token
  */
 export interface SatelliteJWT {
     userId: string;
-    iat: number; //in seconds
-    exp: number; //in seconds
-    aud: string; //satellite id
-    sub: string; //satellite
+    /** in seconds */
+    iat: number; 
+    /** in seconds */
+    exp: number; 
+    /** satellite id */
+    aud: string; 
+    /** satellite */
+    sub: string; 
 }
 
 export interface DownloadFailed {

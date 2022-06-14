@@ -147,7 +147,8 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface Pm2Response {
     updated?: string[];
-    err?: boolean; // SHOULD BE STRING ???
+    /** if the msg associated with this Pm2Response is an error msg */
+    err?: boolean; 
     /** msg returned from successfully run pm2 process */
     msg?: string;
 }

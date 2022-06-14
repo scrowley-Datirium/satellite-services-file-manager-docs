@@ -304,8 +304,6 @@
 
 /**
  * 
- * @property {FileInformation[]} data 
- * @property {FTPInformation} ftpInformation
  */
 export interface ReadRequest {
     action: string;
@@ -322,9 +320,13 @@ export interface ReadRequest {
     currentLocation?: string;
 }
 
+/** interface representing options for ftp usage */
 export interface FTPInformation {
+    /** url/ip for ftp */
     address: string;
+    /** username for ftp */
     username: string;
+    /** password for ftp */
     password: string;
 }
 
@@ -335,9 +337,6 @@ export interface Aria2cResponse {
 
 /**
  * 
- * @property {FileInformation} cwd
- * @property {FileInformation[]} files
- * @property {FileManagerError} error
  */
 export interface ReadResponse {
     cwd: FileInformation;
@@ -351,7 +350,6 @@ export interface DownloadRequestFromFM {
 
 /**
  * 
- * @property {FileInformation[]} data
  */
 export interface DownloadInputFromFM {
     action: string;
@@ -363,7 +361,6 @@ export interface DownloadInputFromFM {
 
 /**
  * 
- * @property {FileInformation} details
  */
 export interface DownloadToSatelliteRequest {
     details: FileInformation[];

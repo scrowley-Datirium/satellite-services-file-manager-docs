@@ -60,6 +60,13 @@
 
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>provide root endpoint for satellites absoluteUrl</p>
+
+            </p>
 
 
 
@@ -124,8 +131,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="9"
-                            class="link-to-prism">src/app.controller.ts:9</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="10"
+                            class="link-to-prism">src/app.controller.ts:10</a></div>
                 </td>
             </tr>
 
@@ -148,6 +155,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get } from &#x27;@nestjs/common&#x27;;
 import { AppService } from &#x27;./app.service&#x27;;
 
+/** provide root endpoint for satellites absoluteUrl */
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}

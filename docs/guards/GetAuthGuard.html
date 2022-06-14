@@ -64,6 +64,13 @@
             </p>
 
 
+                <p class="comment">
+                <h3>Description</h3>
+                </p>
+                <p class="comment">
+                    <p>guard used to protect &#39;download&#39; file-manager api-endpoints</p>
+
+                </p>
 
 
 
@@ -108,7 +115,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/linkDownloadAPI/getAuth.guard.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/linkDownloadAPI/getAuth.guard.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -173,8 +180,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">src/linkDownloadAPI/getAuth.guard.ts:15</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="16"
+                            class="link-to-prism">src/linkDownloadAPI/getAuth.guard.ts:16</a></div>
                 </td>
             </tr>
 
@@ -240,6 +247,7 @@ import { FileManagerToken } from &#x27;src/interfaces&#x27;;
 import Log from &#x27;../lib/logger&#x27;;
 import { AuthService } from &#x27;../auth/auth.service&#x27;;
 
+/** guard used to protect &#x27;download&#x27; file-manager api-endpoints */
 @Injectable()
 export class GetAuthGuard implements CanActivate {
     constructor(private authService: AuthService) {}

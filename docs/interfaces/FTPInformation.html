@@ -69,6 +69,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>interface representing options for ftp usage</p>
+
+            </p>
 
 
         <section>
@@ -143,6 +150,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>url/ip for ftp</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -176,6 +189,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>password for ftp</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -209,6 +228,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>username for ftp</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -220,8 +245,6 @@
 
 /**
  * 
- * @property {FileInformation[]} data 
- * @property {FTPInformation} ftpInformation
  */
 export interface ReadRequest {
     action: string;
@@ -238,9 +261,13 @@ export interface ReadRequest {
     currentLocation?: string;
 }
 
+/** interface representing options for ftp usage */
 export interface FTPInformation {
+    /** url/ip for ftp */
     address: string;
+    /** username for ftp */
     username: string;
+    /** password for ftp */
     password: string;
 }
 
@@ -251,9 +278,6 @@ export interface Aria2cResponse {
 
 /**
  * 
- * @property {FileInformation} cwd
- * @property {FileInformation[]} files
- * @property {FileManagerError} error
  */
 export interface ReadResponse {
     cwd: FileInformation;
@@ -267,7 +291,6 @@ export interface DownloadRequestFromFM {
 
 /**
  * 
- * @property {FileInformation[]} data
  */
 export interface DownloadInputFromFM {
     action: string;
@@ -279,7 +302,6 @@ export interface DownloadInputFromFM {
 
 /**
  * 
- * @property {FileInformation} details
  */
 export interface DownloadToSatelliteRequest {
     details: FileInformation[];
