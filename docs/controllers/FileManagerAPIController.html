@@ -70,7 +70,7 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>expose abstract file-manager related method for pm2 to be able to give this service commands via node</p>
+                <p>expose abstract file-manager related method for file-related requests to satellite</p>
 
             </p>
 
@@ -151,8 +151,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="156"
-                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:156</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="158"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:158</a></div>
                 </td>
             </tr>
 
@@ -231,17 +231,17 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="43"
-                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:43</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:45</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Perform file operation depending on action given
-actions allowed: details, copy, move, create, delete, rename, read
-actions not fully implemented: copy, move, create</p>
+                    <div class="io-description"><p>Perform file operation depending on action given</p>
+<p>actions allowed: details, copy, move, create, delete, rename, read</p>
+<p>actions not fully implemented: copy, move, create</p>
 </div>
 
                     <div class="io-description">
@@ -311,8 +311,8 @@ actions not fully implemented: copy, move, create</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="222"
-                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:222</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="224"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:224</a></div>
                 </td>
             </tr>
 
@@ -359,8 +359,8 @@ actions not fully implemented: copy, move, create</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="176"
-                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:176</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="178"
+                            class="link-to-prism">src/fileManagerAPI/fileManagerAPI.controller.ts:178</a></div>
                 </td>
             </tr>
 
@@ -450,7 +450,7 @@ import { AuthGuard } from &#x27;src/auth/auth.guard&#x27;;
 import { MulterOptions } from &#x27;@nestjs/platform-express/multer/interfaces/multer-options.interface&#x27;;
 import { ConfigService } from &#x27;@nestjs/config&#x27;;
 
-/** expose abstract file-manager related method for pm2 to be able to give this service commands via node */
+/** expose abstract file-manager related method for file-related requests to satellite */
 @Controller(&#x27;filemanager/api/filemanager&#x27;)
 export class FileManagerAPIController {
     constructor(
@@ -462,7 +462,9 @@ export class FileManagerAPIController {
     
     /**
      * Perform file operation depending on action given
+     * 
      * actions allowed: details, copy, move, create, delete, rename, read
+     * 
      * actions not fully implemented: copy, move, create
      * @param {ReadRequest} readRequest 
      */
