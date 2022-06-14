@@ -365,6 +365,7 @@ export interface VisualPluginResponse {
             data: [string, number][][];
         };
     };
+    /** {name, msg, stack} of error */
     error?: Error;
 }
 
@@ -377,22 +378,14 @@ export interface VisualPluginResponse {
  * @property {string} cert certification file
  */
 export interface Certs {
+    /** name of certificate-authority */
     ca?: string;
+    /** private key */
     key: string;
+    /** cert file */
     cert: string;
 }
 
-/**
- * Interface for representing a sample after initally being uploaded
- * @property {string} _id id of sample in DB
- * @property {Object&lt;string, InputObject&gt;} inputs should be a list of &lt;string,InputObject&gt; objects?
- */
-export interface Sample {
-    _id: string;
-    inputs: {
-        [key: string]: InputObject;
-    };
-}
 
 /** interface representing a single input for a sample */
 interface InputObject {
@@ -401,6 +394,23 @@ interface InputObject {
     class: string;
     listing?: InputObject[];
 }
+
+/**
+ * Interface for representing a sample after initally being uploaded
+ * @property {string} _id id of sample in DB
+ * @property {Object&lt;string, InputObject&gt;} inputs 
+ */
+export interface Sample {
+    _id: string;
+    /** 
+     * @type {Map&lt;string, InputObject&gt;}
+     * set of input objects the sample has
+     */
+    inputs: {
+        [key: string]: InputObject;
+    };
+}
+
 </code></pre>
     </div>
 </div>

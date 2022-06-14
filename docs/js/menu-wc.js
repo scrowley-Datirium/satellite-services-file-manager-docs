@@ -283,13 +283,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/DownloadFailed.html" data-type="entity-link" >DownloadFailed</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/DownloadInputFromFM.html" data-type="entity-link" >DownloadInputFromFM</a>
+                                <a href="interfaces/DownloadInputFromFM.html" data-type="entity-link" class="deprecated-name">DownloadInputFromFM</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DownloadObject.html" data-type="entity-link" >DownloadObject</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/DownloadRequestFromFM.html" data-type="entity-link" >DownloadRequestFromFM</a>
+                                <a href="interfaces/DownloadRequestFromFM.html" data-type="entity-link" class="deprecated-name">DownloadRequestFromFM</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DownloadResponse.html" data-type="entity-link" >DownloadResponse</a>

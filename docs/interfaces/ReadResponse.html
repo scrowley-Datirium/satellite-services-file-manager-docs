@@ -69,6 +69,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>response from getting information from a file (or folder)</p>
+
+            </p>
 
 
         <section>
@@ -144,6 +151,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>information about file/folder</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -182,6 +195,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>error from trying to get a files info</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -215,6 +234,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>if folder, include list of information for nested files in that folder</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -257,21 +282,53 @@ export interface Aria2cResponse {
     location: string;
 }
 
+/** interface representing a files information (not content) */
+export interface FileInformation {
+    /** name of file */
+    name: string;
+    /** date file was created @type {Date} */
+    dateCreated: Date;
+    /** date file was last modified @type {Date} */
+    dateModified: Date;
+    filterPath: string;
+    hasChild: boolean;
+    /** if file is a physical file with contents or not */
+    isFile: boolean;
+    /** size of file */
+    size: string | number;
+    type: string;
+    sample_id?: string;
+    target?: string;
+}
+
+/** interface represnting an error thrown by file-manager */
+export interface FileManagerError {
+    code: string;
+    /** error message */
+    message: string;
+    fileExists: string[];
+}
+
 /**
- * 
+ * response from getting information from a file (or folder)
  */
 export interface ReadResponse {
+    /** information about file/folder */
     cwd: FileInformation;
+    /** if folder, include list of information for nested files in that folder */
     files: FileInformation[];
+    /** error from trying to get a files info */
     error?: FileManagerError;
 }
 
+/** @deprecated (not in use?) */
 export interface DownloadRequestFromFM {
     downloadInput: string;
 }
 
 /**
- * 
+ * @deprecated
+ * (not in use?)
  */
 export interface DownloadInputFromFM {
     action: string;
@@ -282,45 +339,39 @@ export interface DownloadInputFromFM {
 }
 
 /**
- * 
+ * interface representing the api-response from sending a satellite a &#x27;download&#x27; request
  */
 export interface DownloadToSatelliteRequest {
+    /** information about file that was downloaded */
     details: FileInformation[];
+    /** path to file on satellite */
     path: string;
+    /** satellite token */
     token: string;
 }
 
-export interface FileInformation {
-    name: string;
-    dateCreated: Date;
-    dateModified: Date;
-    filterPath: string;
-    hasChild: boolean;
-    isFile: boolean;
-    size: string | number;
-    type: string;
-    sample_id?: string;
-    target?: string;
-}
-
+/** interface representing part of the reponse from file-managers &#x27;fileOperations&#x27; endpoint (used when request.action is &#x27;details&#x27;) */
 export interface FileDetails {
+    /** name of file */
     name: string;
+    /** size of file */
     size: string;
+    /** when file was created */
     created: Date;
+    /** when file was modified */
     modified: Date;
+    /** location of file on satellite */
     location: string;
+    /** if file is FILE (could be folder) */
     isFile: boolean;
     type: string;
     multipleFiles?: boolean;
 }
 
-export interface FileManagerError {
-    code: string;
-    message: string;
-    fileExists: string[];
-}
 
+/** interface representing response from fs.Promises stat() method */
 export interface fsStats {
+    /** size of file */
     size: number;
     ctime: string;
     mtime: string;
@@ -329,37 +380,42 @@ export interface fsStats {
 }
 
 /**
- * 
- * @property {Readable} stream
+ * response from download request
  */
 export interface DownloadResponse {
     stream: Readable;
+    /** name of file */
     filename: string;
+    /** size of file (bytes?) */
     filesize: number;
 }
 
-/**
- * 
- * @property {FileDetails} details
- */
 export interface DetailsResponse {
     details?: FileDetails;
 }
 
+/** interface representing a progress report on how an ftp download/upload is going */
 export interface FTPProgress {
     name: string;
     type: string;
+    /** how many bytes have been transferred so far */
     bytes: number;
+    /** how many bytes are to be transferred overall */
     bytesOverall: number;
 }
 
+/** interface representing a request that a file be uploaded (satellite GAINS a file) */
 export interface UploadRequest {
+    /** url/path for upload */
     path: string;
     action: string;
     data: string;
     target: string;
+    /** token for authorizing the upload request */
     token: string;
 }
+
+/** interface representing information from an upload */
 export interface UploadInformation {
     fieldname: string;
     originalname: string;
@@ -367,9 +423,12 @@ export interface UploadInformation {
     mimetype: string;
     buffer: Buffer;
     size: number;
-    destination: string; //Location of file
-    filename: string; //tmp name of file
-    path: string; //destination + filename
+    /** location of file */
+    destination: string;
+    /** tmp name of file */
+    filename: string; 
+    /** destination + filename */
+    path: string; 
 }
 
 export interface RootLocations {
@@ -378,9 +437,13 @@ export interface RootLocations {
     local: string;
 }
 
+/** interface representing token information for file-manager after being decoded */
 export interface FileManagerToken {
+    /** project id correlating to file related request */
     projectId: string;
+    /** sample id correlating to file related request */
     sampleId?: string;
+    /** satellite id correlating to file related request */
     satelliteId: string;
     iat: number;
     exp: number;

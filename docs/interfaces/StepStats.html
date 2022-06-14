@@ -69,6 +69,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>interface representing stats for a single step in a cwl&#39;s run</p>
+
+            </p>
 
 
         <section>
@@ -143,6 +150,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>in seconds since local start_date</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -176,6 +189,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>in seconds since total start_date</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -209,6 +228,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>folder size for this step (in KB)</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -216,51 +241,99 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface AirflowProgressReport {
-    dag_id: string;
-    run_id: string; // sample id
-    state: string;
-    progress: number;
-    error: string;
-    statistics: string | Statistics;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">interface StepStats {
+    /** folder size for this step (in KB) */
+    tmp_folder_size: number; //in KB
+    /** in seconds since total start_date */
+    start_date: number; 
+    /** in seconds since local start_date */
+    end_date: number; 
 }
 
+/**
+ * interface representing a cwl runs statistics
+ */
 export interface Statistics {
+    /** version of cwl */
     version: string;
+    /** stats for the entire cwl run */
     total: {
+        /** size of inputs (in KB) */
         tmp_folder_size: number; //in KB
+        /** size of outputs (in KB) */
         outputs_folder_size: number; //in KB
+        /** date-time when cwl run began (in sec) */
         start_date: string;
-        end_date: number; // in seconds since start_date
+        /** in seconds since start_date */
+        end_date: number; 
     };
+    /** 
+     * @type {Map&lt;string, StepStats&gt;}
+     * set of statictics for each step in the run 
+     */
     steps: {
         [key: string]: StepStats;
     };
 }
 
+/**
+ * @extends Statistics
+ */
 export interface StatisticsReport extends Statistics {
+    /** sample this statistics report is for */
     sampleId: string;
 }
 
-interface StepStats {
-    tmp_folder_size: number; //in KB
-    start_date: number; //in seconds since total start_date
-    end_date: number; //in seconds since local start_date
+/**
+ * Interface representing the progress of an airflow cwl run
+ */
+export interface AirflowProgressReport {
+    /** id of dag (overall cwl) */
+    dag_id: string;
+    /** sample id */
+    run_id: string; 
+    /** state of run */
+    state: string;
+    /** progress of run (%) */
+    progress: number;
+    /** error message from run */
+    error: string;
+    /** 
+     * @type {string | Statistics}
+     * statistics for run */
+    statistics: string | Statistics;
 }
 
+/** response from airflow */
 export interface AirflowResponse {
+    /**
+     * @type {AirflowProgressReport}
+     * payload is a progress report of airflows run
+     */
     payload: AirflowProgressReport;
 }
 
+/**
+ * interface representing a report from airflow after a successful run
+ */
+export interface AirflowSuccessReport {
+    /** id of run (dag) airflow finished */
+    dag_id: string;
+    /** id of sample this dag was for */
+    run_id: string;
+    /** results of the run */
+    results: any;
+}
+
+/** response from airflow (used when run was successful) */
 export interface AirflowSuccessResponse {
+    /**
+     * @type {AirflowSuccessReport}
+     * payload is a progress report of airflows run
+     */
     payload: AirflowSuccessReport;
 }
 
-export interface AirflowSuccessReport {
-    dag_id: string;
-    run_id: string;
-    results: any;
-}
 </code></pre>
     </div>
 </div>
