@@ -237,9 +237,9 @@ export interface DagRunInfo {
 
 /** Representative of the options used to visualize data */
 interface VisualPlugin {
-    /** colors used by each data value */
+    /** colors used by each data value (index correlates with data) */
     colors: string[];
-    /** data value to visualize */
+    /** data value to visualize (index correlates with colors) */
     data: string[];
 }
 
@@ -253,16 +253,20 @@ export interface VisualPluginRequest {
     filePath: string;
     /** what type of visual plugin (pie chart, bar graph, ...) */
     type: string;
-    /** @type {VisualPlugin} the data and how it should be visualized */
+    /** @type {VisualPlugin} the samples data and how it should be visualized */
     visualPlugins: VisualPlugin;
     data: string[];
 }
 
-/** Representative of the object stored on a sample&#x27;s dbDoc. Matches format that front-end expects in order to visualize data */
+/** Representative of the object stored on a sample&#x27;s doc in DB. Matches format that front-end expects in order to visualize data */
 export interface VisualPluginResponse {
     /** id of sample who&#x27;s analysis process is being visualized */
     sampleId: string;
-    /** object with key (name of what&#x27;s being visualized) and visualPlugin data */
+    /** 
+     * object with key (name of what&#x27;s being visualized) and visualPlugin data 
+     * 
+     * essentially object of key:values where values are the same structure as @type {VisualPlugin}, but not typed as such
+    */
     visualPlugin: {
         [key: string]: {
             colors: string[];
@@ -302,7 +306,7 @@ interface InputObject {
 /**
  * Interface for representing a sample after initally being uploaded
  * @property {string} _id id of sample in DB
- * @property {Object&lt;string, InputObject&gt;} inputs 
+ * @property {Map&lt;string, InputObject&gt;} inputs 
  */
 export interface Sample {
     _id: string;

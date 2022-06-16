@@ -238,7 +238,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/AirflowProgressReport.html" data-type="entity-link" >AirflowProgressReport</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/AirflowReportToAPI.html" data-type="entity-link" >AirflowReportToAPI</a>
+                                <a href="interfaces/AirflowReportToAPI.html" data-type="entity-link" class="deprecated-name">AirflowReportToAPI</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/AirflowResponse.html" data-type="entity-link" >AirflowResponse</a>
@@ -253,19 +253,19 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/AirflowSuccessToAPI.html" data-type="entity-link" >AirflowSuccessToAPI</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/Aria2cProgressReport.html" data-type="entity-link" >Aria2cProgressReport</a>
+                                <a href="interfaces/Aria2cProgressReport.html" data-type="entity-link" class="deprecated-name">Aria2cProgressReport</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/Aria2cResponse.html" data-type="entity-link" >Aria2cResponse</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/AriaDownloadObject.html" data-type="entity-link" >AriaDownloadObject</a>
+                                <a href="interfaces/AriaDownloadObject.html" data-type="entity-link" class="deprecated-name">AriaDownloadObject</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/AriaFileInfo.html" data-type="entity-link" >AriaFileInfo</a>
+                                <a href="interfaces/AriaFileInfo.html" data-type="entity-link" class="deprecated-name">AriaFileInfo</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/BaseModuleInterface.html" data-type="entity-link" >BaseModuleInterface</a>
+                                <a href="interfaces/BaseModuleInterface.html" data-type="entity-link" class="deprecated-name">BaseModuleInterface</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/Certs.html" data-type="entity-link" >Certs</a>
@@ -280,13 +280,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/DetailsResponse.html" data-type="entity-link" >DetailsResponse</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/DownloadFailed.html" data-type="entity-link" >DownloadFailed</a>
+                                <a href="interfaces/DownloadFailed.html" data-type="entity-link" class="deprecated-name">DownloadFailed</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DownloadInputFromFM.html" data-type="entity-link" class="deprecated-name">DownloadInputFromFM</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/DownloadObject.html" data-type="entity-link" >DownloadObject</a>
+                                <a href="interfaces/DownloadObject.html" data-type="entity-link" class="deprecated-name">DownloadObject</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DownloadRequestFromFM.html" data-type="entity-link" class="deprecated-name">DownloadRequestFromFM</a>
@@ -295,7 +295,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/DownloadResponse.html" data-type="entity-link" >DownloadResponse</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/DownloadResults.html" data-type="entity-link" >DownloadResults</a>
+                                <a href="interfaces/DownloadResults.html" data-type="entity-link" class="deprecated-name">DownloadResults</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DownloadToken.html" data-type="entity-link" class="deprecated-name">DownloadToken</a>
@@ -334,7 +334,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/InputObject.html" data-type="entity-link" >InputObject</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/MergedDownloadObject.html" data-type="entity-link" >MergedDownloadObject</a>
+                                <a href="interfaces/MergedDownloadObject.html" data-type="entity-link" class="deprecated-name">MergedDownloadObject</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/MimeTypes.html" data-type="entity-link" >MimeTypes</a>

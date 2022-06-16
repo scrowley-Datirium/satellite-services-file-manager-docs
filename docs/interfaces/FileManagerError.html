@@ -372,7 +372,11 @@ export interface DownloadResponse {
     filesize: number;
 }
 
+/** interface represetnting the response from an api call to file-managers &#x27;details&#x27;  */
 export interface DetailsResponse {
+    /**
+     * @type {FileDetails} details of file from api-sync&#x27;s file-manager/details api call
+     */
     details?: FileDetails;
 }
 
@@ -413,13 +417,17 @@ export interface UploadInformation {
     path: string; 
 }
 
+/** interface used to hold a satellite&#x27;s root locations relevant to file-management */
 export interface RootLocations {
+    /** path to project directory (generaly /home/scidap/projects) */
     projects: string;
+    /** path to labs directory (only required on satellites with multiple labs) */
     labs: string;
+    /** path to local directory (generally /home/scidap/local or /home/scidap/upload ) */
     local: string;
 }
 
-/** interface representing token information for file-manager after being decoded */
+/** interface representing token information for file-manager after jwt is decoded */
 export interface FileManagerToken {
     /** project id correlating to file related request */
     projectId: string;

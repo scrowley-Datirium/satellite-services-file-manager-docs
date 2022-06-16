@@ -46,6 +46,7 @@
 <ol class="breadcrumb">
   <li>Interfaces</li>
   <li
+        class="deprecated-name"
   >
   MergedDownloadObject</li>
 </ol>
@@ -68,6 +69,12 @@
             <code>src/interfaces/satellite.interface.ts</code>
         </p>
 
+            <p class="comment">
+                <h3 class="deprecated">Deprecated</h3>
+            </p>
+            <p class="comment">
+                not in use?
+            </p>
 
 
 
@@ -187,6 +194,7 @@ export interface ProcessedData {
     downloads?: any[];
 }
 
+/** @deprecated not in use? */
 export interface BaseModuleInterface {
     getInfo(): {
         moduleId: string;
@@ -221,6 +229,7 @@ export interface FileData {
     header: string;
 }
 
+/** @deprecated not in use? */
 export interface DownloadObject {
     uri: string;
     path: string;
@@ -238,13 +247,14 @@ export interface DownloadObject {
 }
 
 /**
- * 
+ * @deprecated not in use?
  * @extends {DownloadObject}
  */
 export interface AriaDownloadObject extends DownloadObject {
     gid: string;
 }
 
+/** @deprecated not in use? */
 export interface DownloadResults {
     status: string;
     fileId?: string;
@@ -257,9 +267,15 @@ export interface DownloadResults {
     sampleId?: string;
 }
 
-/**
- * 
- */
+/** @deprecated not in use? */
+export interface AriaFileInfo {
+    path: string;
+    uris: {
+        uri: string;
+    }[];
+}
+
+/** @deprecated not in use? */
 export interface Aria2cProgressReport {
     status: string;
     completedLength: number;
@@ -267,20 +283,14 @@ export interface Aria2cProgressReport {
     files: AriaFileInfo[];
 }
 
-/**
- * 
- */
+/** @deprecated not in use? */
 export interface MergedDownloadObject {
     aria2: Aria2cProgressReport;
     data: AriaDownloadObject;
 }
 
-export interface AriaFileInfo {
-    path: string;
-    uris: {
-        uri: string;
-    }[];
-}
+
+/** @deprecated not in use? */
 export interface AirflowReportToAPI {
     state: string;
     dagId: string;
@@ -297,9 +307,10 @@ export interface AirflowSuccessToAPI {
 }
 
 /**
- * interface representing parsed satellite token
+ * interface representing decoded satellite token
  */
 export interface SatelliteJWT {
+    /** id of user */
     userId: string;
     /** in seconds */
     iat: number; 
@@ -307,10 +318,11 @@ export interface SatelliteJWT {
     exp: number; 
     /** satellite id */
     aud: string; 
-    /** satellite */
+    /** satellite object */
     sub: string; 
 }
 
+/** @deprecated not in use? */
 export interface DownloadFailed {
     message: string;
     sampleId: string;
