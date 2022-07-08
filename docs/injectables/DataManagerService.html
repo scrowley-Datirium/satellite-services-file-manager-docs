@@ -300,8 +300,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="96"
-                            class="link-to-prism">src/dataManager/dataManager.service.ts:96</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="97"
+                            class="link-to-prism">src/dataManager/dataManager.service.ts:97</a></div>
                 </td>
             </tr>
 
@@ -414,8 +414,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="120"
-                            class="link-to-prism">src/dataManager/dataManager.service.ts:120</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="123"
+                            class="link-to-prism">src/dataManager/dataManager.service.ts:123</a></div>
                 </td>
             </tr>
 
@@ -991,6 +991,7 @@ export class DataManagerService {
      * @param {Pm2Response} message 
      */
     public sendMessage(message: Pm2Response) {
+        Log.debug(&#x60;sending msg: ${message}&#x60;);
         process.send({
             type : &#x27;process:msg&#x27;,
             data : {
@@ -1007,6 +1008,8 @@ export class DataManagerService {
         const localFiles &#x3D; this.localFiles || { path: &#x27;&#x27; };
         this.fsRoot.local &#x3D; path.resolve(&#x27;/&#x27;, localFiles.path);
         this.storage &#x3D; new FileSystemStorage(this.scidapHome);
+        Log.debug(&#x60;storage path: ${this.scidapHome}&#x60;);
+        Log.debug(&#x60;local path: ${this.fsRoot.local}&#x60;);
         // };
     // } catch (err) {
     //     Log.debug(err);
@@ -1037,6 +1040,7 @@ export class DataManagerService {
         this.stopServers &#x3D; async () &#x3D;&gt; {
             const response: Pm2Response &#x3D; {};
             try {
+                Log.debug(&#x27;attempting to stop servers&#x27;);
                 const msg &#x3D; await stopServers();
                 response.msg &#x3D; msg.join(&#x27;, &#x27;);
             } catch (err) {
@@ -1044,6 +1048,7 @@ export class DataManagerService {
                 response.msg &#x3D; msg;
                 response.err &#x3D; err;
             } finally {
+                Log.debug(&#x60;response from pm2: ${response}&#x60;);
                 this.sendMessage(response);
             }
         };
